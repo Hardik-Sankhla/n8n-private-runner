@@ -4,5 +4,8 @@
     "dockerfile": "../Dockerfile"
   },
   "forwardPorts": [5678],
-  "postStartCommand": "./start.sh"
+  "postStartCommand": "./start.sh",
+  "features": {
+    "docker-in-docker": "latest"
+  }
 }
