@@ -3,9 +3,12 @@
   "build": {
     "dockerfile": "../Dockerfile"
   },
-  "forwardPorts": [5678],
-  "postStartCommand": "./start.sh",
   "features": {
-    "docker-in-docker": "latest"
-  }
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "lts"
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "forwardPorts": [5678],
+  "postStartCommand": "./start.sh"
 }
