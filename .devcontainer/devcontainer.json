@@ -1,0 +1,8 @@
+{
+  "name": "n8n Automation Workspace",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
+  "forwardPorts": [5678],
+  "postStartCommand": "./start.sh"
+}

@@ -1,0 +1,36 @@
+name: CI - Build and Test n8n Docker Container
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build Docker image
+      run: docker build -t n8n-private-runner-test .
+
+    - name: Run container in detached mode
+      run: |
+        docker run -d --name n8n-test -p 5678:5678 n8n-private-runner-test
+
+    - name: Wait for container to start
+      run: sleep 10
+
+    - name: Test if n8n is responding on port 5678
+      run: |
+        if curl -s http://localhost:5678/ | grep -q 'n8n'; then
+          echo "n8n is running."
+        else
+          echo "n8n is not responding!"
+          exit 1
+        fi
+
+    - name: Cleanup
+      run: docker rm -f n8n-test
